@@ -1,0 +1,24 @@
+.row {
+    display:flex;
+}
+
+.inputHidden, .displayHidden {
+    visibility: hidden;
+}
+
+.inputVisible, .displayVisible {
+    visibility: visible;
+}
+
+input, p {
+    margin: 20px;
+}
+
+p {
+    /* color: b; */
+}
+
+input {
+    text-decoration-line: underline;
+    /* border: none; */
+}
