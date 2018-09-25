@@ -5,14 +5,19 @@ class TimeArea extends Component {
     render() {
         this.setMinutes = this.setMinutes.bind(this); 
         let input = <input className={this.props.inputClasses} placeholder="25" min="1" type="number" onChange={this.setMinutes}/>;
-        
+        let minutes = Math.floor(this.props.seconds / 60);
+        let seconds = this.props.seconds % 60;
+        let displaySeconds = (seconds === 0) ? '00' : seconds;
+
         if (this.props.title === "Break")
             input = <input className={this.props.inputClasses} placeholder="5" min="1" type="number" onChange={this.setMinutes}/>;
             let html = 
                 <div className = 'row'>
                     <p className = 'title'> {this.props.title} </p>
                     {input}
-                    <p className={this.props.displayClasses}>{this.props.minutes}</p>
+                    <p className={this.props.displayClasses}>
+                        {minutes + ' : ' + displaySeconds}
+                    </p>
                 </div>;
         return html;
     }
@@ -22,7 +27,7 @@ class TimeArea extends Component {
         // Clean up minutes here before calling function
         if(minutes < 1)
             event.target.value = minutes = 1;
-        // Change this 
+        // Change 'this'
         let updateMinutesInParent = this.props.setMinutes.bind(this.props.ctx);
         updateMinutesInParent(minutes);
     }

@@ -1,18 +1,26 @@
-.startBtn{
-  background-color: gray;
+.btn{
   margin-left:20px;
   width:50px;
-  color:lightgrey;
+  /* color:lightgrey; */
   padding: 5px;
   text-align: center;
 }
 
+.startBtn {
+  background-color:green;
+}
+
+.cancelBtn {
+  background-color: red;
+}
 
 
-.startBtn:hover {
+.btn:hover {
   color: black;
+  cursor: pointer;
+  border-radius:10%;
 }
 
 body {
-  background-color: white;
+  /* background-color: white; */
 }
