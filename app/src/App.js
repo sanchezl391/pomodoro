@@ -12,8 +12,11 @@ class App extends Component {
         seconds: 0,
         breakClasses: {
           input: 'inputVisible',
-          display: 'displayHidden'
-        }
+          display: 'displayHidden',
+          textarea: 'textAreaVisible',
+          message: 'messageHidden'
+        },
+        message: 'a message will go here'
       },
       session: {
         finalSessionMinutes: 25,
@@ -25,6 +28,8 @@ class App extends Component {
       },
       btnClasses: 'btn startBtn'
     };
+
+    this.setMessage = this.setMessage.bind(this);
   }
 
   render() {
@@ -41,14 +46,24 @@ class App extends Component {
           inputClasses={this.state.session.sessionClasses.input}
           displayClasses={this.state.session.sessionClasses.display}  
         />
-        <TimeArea // Break
-          setMinutes={this.setFinalBreakMinutes} 
-          ctx={this}
-          seconds={this.state.break.seconds} 
-          title='Break (minutes)'
-          inputClasses={this.state.break.breakClasses.input}
-          displayClasses={this.state.break.breakClasses.display}
-        />
+        <div className="breakRow">
+          <TimeArea // Break
+            setMinutes={this.setFinalBreakMinutes} 
+            ctx={this}
+            seconds={this.state.break.seconds} 
+            title='Break (minutes)'
+            inputClasses={this.state.break.breakClasses.input}
+            displayClasses={this.state.break.breakClasses.display}
+          />
+          <textarea 
+            className={this.state.break.breakClasses.textarea}
+            onChange={this.setMessage}
+            name="" 
+            id="" ></textarea>
+          <div className={this.state.break.breakClasses.message}>
+            {this.state.break.message}
+          </div>
+        </div>
         <div 
           className={this.state.btnClasses}
           onClick={this.handleClick}
@@ -66,6 +81,14 @@ class App extends Component {
 
   toggleState() {
     let showStartBtn = !(this.state.btnClasses === "btn startBtn");
+    let seconds = this.state.session.seconds;
+
+    if(!showStartBtn ) // timer will start
+      this.timer = setInterval(() => this.decrementOneSecondFromSession(), 1000);
+    else { 
+      clearInterval(this.timer);
+      seconds = 0;
+    }
 
     // Update classes for display and input
     this.setState((prevState, props) => ({
@@ -74,12 +97,16 @@ class App extends Component {
         seconds: prevState.break.seconds,
         breakClasses: {
           input: (showStartBtn) ? 'inputVisible' : 'inputHidden',
-          display: (showStartBtn) ? 'displayHidden' : 'displayVisible'
-        }
+          display: (showStartBtn) ? 'displayHidden' : 'displayVisible',
+          textarea: (showStartBtn) ? 'textAreaVisible' : 'textAreaHidden',
+          message: (showStartBtn) ? 'messageHidden' : 'messageVisible'
+        },
+        message: prevState.break.message
+
       },
       session: {
         finalSessionMinutes: prevState.session.finalSessionMinutes,
-        seconds: prevState.session.seconds,
+        seconds: seconds,
         sessionClasses: {
           input: (showStartBtn) ? 'inputVisible' :'inputHidden',
           display: (showStartBtn) ? 'displayHidden' : 'displayVisible'
@@ -87,11 +114,6 @@ class App extends Component {
       },
       btnClasses: (showStartBtn) ? "btn startBtn": "btn cancelBtn"
     }));
-    
-    if(!showStartBtn ) // timer will start
-      this.timer = setInterval(() => this.decrementOneSecondFromSession(), 1000);
-    else 
-      clearInterval(this.timer);
   }
 
   decrementOneSecondFromBreak() {
@@ -106,7 +128,8 @@ class App extends Component {
       break: {
         finalBreakMinutes: prevState.break.finalBreakMinutes, 
         seconds: newSeconds,
-        breakClasses: prevState.break.breakClasses
+        breakClasses: prevState.break.breakClasses,
+        message: prevState.break.message
       },
       session: prevState.session,
       btnClasses: prevState.btnClasses
@@ -133,6 +156,20 @@ class App extends Component {
     console.log(this.state.session.seconds);
   }
 
+  setMessage(event) {
+    let message = event.target.value;
+    this.setState((prevState, props) => ({
+      break: {
+        finalBreakMinutes: prevState.break.finalBreakMinutes,
+        seconds: prevState.break.seconds,
+        breakClasses: prevState.break.breakClasses,
+        message: message
+      },
+      session: prevState.session,
+      btnClasses: prevState.btnClasses
+    }));
+  }
+
   setFinalSessionMinutes(minutes) {
     this.setState((prevState, props) => ({
       break: prevState.break,
@@ -149,7 +186,8 @@ class App extends Component {
       break: {
         finalBreakMinutes: minutes,
         seconds: minutes * 60,
-        breakClasses: prevState.break.breakClasses
+        breakClasses: prevState.break.breakClasses,
+        message: prevState.break.message
       },
       session: prevState.session,
       btnClasses: prevState.btnClasses

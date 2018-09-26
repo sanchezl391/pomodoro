@@ -13,16 +13,17 @@ class TimeArea extends Component {
             displaySeconds = '0' + seconds;
         if(minutes < 10)
             displayMinutes = '0' + minutes;
+
         if (this.props.title === "Break")
             input = <input className={this.props.inputClasses} placeholder="5" min="1" type="number" onChange={this.setMinutes}/>;
-            let html = 
-                <div className = 'row'>
-                    <p className = 'title'> {this.props.title} </p>
-                    {input}
-                    <p className={this.props.displayClasses}>
-                        {displayMinutes + ' : ' + displaySeconds}
-                    </p>
-                </div>;
+        let html = 
+            <div className = 'row'>
+                <p className = 'title'> {this.props.title} </p>
+                {input}
+                <p className={this.props.displayClasses}>
+                    {displayMinutes + ' : ' + displaySeconds}
+                </p>
+            </div>;
         return html;
     }
 
