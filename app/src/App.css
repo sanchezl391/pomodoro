@@ -21,6 +21,14 @@ textarea {
   margin: auto;
 }
 
+.startBtn, .cancelBtn {
+  padding:  5px 10px 5px 10px;
+  margin-top: 20px;
+  font-size: 30px;
+  width: auto;
+  height: auto;
+}
+
 .startBtn {
   background-color:#16a085;
   color: white;
