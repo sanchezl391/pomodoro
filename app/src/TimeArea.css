@@ -1,5 +1,10 @@
 .row {
     display:flex;
+    justify-content: center;
+}
+
+.title {
+    width: 50px;
 }
 
 .inputHidden, .displayHidden {
@@ -14,8 +19,8 @@ input, p {
     margin: 20px;
 }
 
-p {
-    /* color: b; */
+.textareaRow {
+    display: flex;
 }
 
 input {

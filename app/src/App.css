@@ -1,14 +1,24 @@
 .container {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .btn{
   margin-left:20px;
   width:50px;
-  /* color:lightgrey; */
   padding: 5px;
   text-align: center;
+}
+
+.mssgTitle {
+  width: 50%;
+  text-align: center;
+}
+
+textarea {
+  width: 50%;
+  margin: auto;
 }
 
 .startBtn {
@@ -27,18 +37,14 @@
   border-radius:15%;
 }
 
-body {
-  /* background-color: white; */
-}
-
 .breakRow {
   display: flex;
 }
 
-.textAreaHidden, .messageHidden {
+.textAreaHidden {
   visibility: hidden;
 }
 
-.textAreaVisible, .messageVisible {
+.textAreaVisible {
   visibility: visible;
 }

@@ -21,7 +21,7 @@ class TimeArea extends Component {
                 <p className = 'title'> {this.props.title} </p>
                 {input}
                 <p className={this.props.displayClasses}>
-                    {displayMinutes + ' : ' + displaySeconds}
+                    {displayMinutes + ' min : ' + displaySeconds + ' sec left'}
                 </p>
             </div>;
         return html;

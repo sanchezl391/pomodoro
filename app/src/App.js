@@ -13,8 +13,7 @@ class App extends Component {
         breakClasses: {
           input: 'inputVisible',
           display: 'displayHidden',
-          textarea: 'textAreaVisible',
-          message: 'messageHidden'
+          textarea: 'textAreaVisible'
         },
         message: 'a message will go here'
       },
@@ -46,28 +45,29 @@ class App extends Component {
           inputClasses={this.state.session.sessionClasses.input}
           displayClasses={this.state.session.sessionClasses.display}  
         />
-        <div className="breakRow">
-          <TimeArea // Break
-            setMinutes={this.setFinalBreakMinutes} 
-            ctx={this}
-            seconds={this.state.break.seconds} 
-            title='Break (minutes)'
-            inputClasses={this.state.break.breakClasses.input}
-            displayClasses={this.state.break.breakClasses.display}
-          />
-          <textarea 
-            className={this.state.break.breakClasses.textarea}
-            onChange={this.setMessage}
-            name="" 
-            id="" ></textarea>
-          <div className={this.state.break.breakClasses.message}>
-            {this.state.break.message}
-          </div>
-        </div>
+        <TimeArea // Break
+          setMinutes={this.setFinalBreakMinutes} 
+          ctx={this}
+          seconds={this.state.break.seconds} 
+          title='Break (minutes)'
+          inputClasses={this.state.break.breakClasses.input}
+          displayClasses={this.state.break.breakClasses.display}
+        />
+        <p className="mssgTitle">
+          Message shown when it is time for break. Be ready for it!
+        </p>
+        <textarea 
+          className={this.state.break.breakClasses.textarea}
+          onChange={this.setMessage}
+          rows={2}
+          cols={4}
+          ></textarea>
+        
+        
         <div 
           className={this.state.btnClasses}
           onClick={this.handleClick}
-        >
+          >
           {btnTxt}
         </div> 
       </div>
@@ -82,6 +82,9 @@ class App extends Component {
   toggleState() {
     let showStartBtn = !(this.state.btnClasses === "btn startBtn");
     let seconds = this.state.session.seconds;
+    let showDisplay = this.state.break.seconds === 0;
+    if(showDisplay)
+      alert(this.state.break.message);
 
     if(!showStartBtn ) // timer will start
       this.timer = setInterval(() => this.decrementOneSecondFromSession(), 1000);
@@ -98,8 +101,7 @@ class App extends Component {
         breakClasses: {
           input: (showStartBtn) ? 'inputVisible' : 'inputHidden',
           display: (showStartBtn) ? 'displayHidden' : 'displayVisible',
-          textarea: (showStartBtn) ? 'textAreaVisible' : 'textAreaHidden',
-          message: (showStartBtn) ? 'messageHidden' : 'messageVisible'
+          textarea: (showStartBtn) ? 'textAreaVisible' : 'textAreaHidden'
         },
         message: prevState.break.message
 
