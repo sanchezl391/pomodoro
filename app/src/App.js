@@ -37,7 +37,7 @@ class App extends Component {
           setMinutes={this.setFinalSessionMinutes} 
           ctx={this} 
           seconds={this.state.session.seconds} 
-          title='Session'
+          title='Session (minutes)'
           inputClasses={this.state.session.sessionClasses.input}
           displayClasses={this.state.session.sessionClasses.display}  
         />
@@ -45,7 +45,7 @@ class App extends Component {
           setMinutes={this.setFinalBreakMinutes} 
           ctx={this}
           seconds={this.state.break.seconds} 
-          title='Break'
+          title='Break (minutes)'
           inputClasses={this.state.break.breakClasses.input}
           displayClasses={this.state.break.breakClasses.display}
         />
@@ -91,10 +91,16 @@ class App extends Component {
   }
 
   decrementOneSecondFromBreak() {
+    let newSeconds = this.state.break.seconds - 1;
+    if(this.state.break.seconds === 0){
+      clearInterval(this.timer);
+      newSeconds = 0;
+    }
+
     this.setState((prevState, props) => ({
       break: {
         finalBreakMinutes: prevState.break.finalBreakMinutes, 
-        seconds: prevState.break.seconds--,
+        seconds: newSeconds,
         breakClasses: prevState.break.breakClasses
       },
       session: prevState.session,
