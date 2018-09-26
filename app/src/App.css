@@ -7,18 +7,19 @@
 }
 
 .startBtn {
-  background-color:green;
+  background-color:#16a085;
+  color: white;
 }
 
 .cancelBtn {
-  background-color: red;
+  background-color: #c0392b;
+  color: white;
 }
 
 
 .btn:hover {
-  color: black;
   cursor: pointer;
-  border-radius:10%;
+  border-radius:15%;
 }
 
 body {

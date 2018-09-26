@@ -61,6 +61,10 @@ class App extends Component {
   }
 
   handleClick(event){
+    this.toggleState();
+  }
+
+  toggleState() {
     let showStartBtn = !(this.state.btnClasses === "btn startBtn");
 
     // Update classes for display and input
@@ -84,7 +88,7 @@ class App extends Component {
       btnClasses: (showStartBtn) ? "btn startBtn": "btn cancelBtn"
     }));
     
-    if(!showStartBtn) // timer will start
+    if(!showStartBtn ) // timer will start
       this.timer = setInterval(() => this.decrementOneSecondFromSession(), 1000);
     else 
       clearInterval(this.timer);
@@ -95,6 +99,7 @@ class App extends Component {
     if(this.state.break.seconds === 0){
       clearInterval(this.timer);
       newSeconds = 0;
+      this.toggleState();
     }
 
     this.setState((prevState, props) => ({
