@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import TimeArea from './TimeArea'
 
-class App extends Component {
+class App extends Component {v
   constructor(props) {
     super(props);
 
@@ -29,6 +29,11 @@ class App extends Component {
     };
 
     this.setMessage = this.setMessage.bind(this);
+  }
+
+  componentDidMount() {
+     fetch('http://localhost:3000')
+      .then(response => console.log)
   }
 
   render() {
