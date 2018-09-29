@@ -32,7 +32,7 @@ class App extends Component {v
   }
 
   componentDidMount() {
-     fetch('http://localhost:3000')
+     fetch('https://taskfocus.heroku.com')
       .then(response => console.log)
   }
 
