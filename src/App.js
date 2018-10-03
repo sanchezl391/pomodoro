@@ -25,15 +25,43 @@ class App extends Component {v
           display: 'displayHidden'
         }
       },
-      btnClasses: 'btn startBtn'
+      btnClasses: 'btn startBtn',
+      minuteListHtml: <ul><li> No session completed today :( </li></ul>
     };
 
     this.setMessage = this.setMessage.bind(this);
   }
 
   componentDidMount() {
-     fetch('https://taskfocus.heroku.com')
-      .then(response => console.log)
+    // Request logs for day
+    let self = this;
+     fetch('http://localhost:3001/')
+      .then(
+        function(response) {
+          if (response.status !== 200) {
+            console.log('Looks like there was a problem. Status Code: ' +
+              response.status);
+            return;
+          }
+
+          response.json().then(function(data) {
+            let minutesArr = [];
+            data.forEach(function(minuteLog, index){ 
+              minutesArr[index] = <li key={index}> { minuteLog.minutes } </li>;
+            });
+  
+            self.setState((prevState, props) => ({
+              break: prevState.break,
+              session: prevState.session,
+              btnClasses: prevState.btnClasses,
+              minuteListHtml: <ul> { minutesArr } </ul>
+            }));
+          });
+        }
+      )
+      .catch(function(err) {
+        console.log('Fetch Error :-S', err);
+      });
   }
 
   render() {
@@ -68,13 +96,15 @@ class App extends Component {v
           cols={4}
           ></textarea>
         
-        
         <div 
           className={this.state.btnClasses}
           onClick={this.handleClick}
           >
           {btnTxt}
         </div> 
+        <ul>
+          { this.state.minuteListHtml }
+        </ul>
       </div>
       ;
     return html;
@@ -119,7 +149,8 @@ class App extends Component {v
           display: (showStartBtn) ? 'displayHidden' : 'displayVisible'
         }
       },
-      btnClasses: (showStartBtn) ? "btn startBtn": "btn cancelBtn"
+      btnClasses: (showStartBtn) ? "btn startBtn": "btn cancelBtn",
+      minuteListHtml: prevState.minuteListHtml
     }));
   }
 
@@ -139,7 +170,8 @@ class App extends Component {v
         message: prevState.break.message
       },
       session: prevState.session,
-      btnClasses: prevState.btnClasses
+      btnClasses: prevState.btnClasses,
+      minuteListHtml: prevState.minuteListHtml
     }));
   }
 
@@ -158,7 +190,8 @@ class App extends Component {v
         seconds: newSeconds,
         sessionClasses: prevState.session.sessionClasses
       },
-      btnClasses: prevState.btnClasses
+      btnClasses: prevState.btnClasses,
+      minuteListHtml: prevState.minuteListHtml
     }));
     console.log(this.state.session.seconds);
   }
@@ -173,7 +206,8 @@ class App extends Component {v
         message: message
       },
       session: prevState.session,
-      btnClasses: prevState.btnClasses
+      btnClasses: prevState.btnClasses,
+      minuteListHtml: prevState.minuteListHtml
     }));
   }
 
@@ -185,7 +219,8 @@ class App extends Component {v
         seconds: minutes * 60,
         sessionClasses: prevState.session.sessionClasses
       },
-      btnClasses: prevState.btnClasses
+      btnClasses: prevState.btnClasses,
+      minuteListHtml: prevState.minuteListHtml
     }));
   }
   setFinalBreakMinutes(minutes) {
@@ -197,7 +232,8 @@ class App extends Component {v
         message: prevState.break.message
       },
       session: prevState.session,
-      btnClasses: prevState.btnClasses
+      btnClasses: prevState.btnClasses,
+      minuteListHtml: prevState.minuteListHtml
     }));
   }
 }
