@@ -35,6 +35,7 @@ class App extends Component {v
   componentDidMount() {
     // Request logs for day
     let self = this;
+
      fetch('http://localhost:3001/')
       .then(
         function(response) {
@@ -155,8 +156,28 @@ class App extends Component {v
   }
 
   decrementOneSecondFromBreak() {
+    console.log(this.state.session.finalSessionMinutes);
     let newSeconds = this.state.break.seconds - 1;
-    if(this.state.break.seconds === 0){
+    let self = this;
+    if(this.state.break.seconds === 0){ // Completed a session successfully
+
+      fetch('http://localhost:3001', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        body: JSON.stringify({ minutes: self.state.session.finalSessionMinutes })
+      })
+      .then( function(response) {
+        if (response.status !== 200) {
+          console.log('Looks like there was a problem. Status Code: ' +
+            response.status);
+          return;
+        }
+      })
+      .catch(function(err) {
+        console.log('Fetch Error :-S', err);
+      });
       clearInterval(this.timer);
       newSeconds = 0;
       this.toggleState();
@@ -186,14 +207,13 @@ class App extends Component {v
     this.setState((prevState, props) => ({
       break: prevState.break,
       session: {
-        finalBreakMinutes: prevState.session.finalBreakMinutes, 
+        finalSessionMinutes: prevState.session.finalSessionMinutes, 
         seconds: newSeconds,
         sessionClasses: prevState.session.sessionClasses
       },
       btnClasses: prevState.btnClasses,
       minuteListHtml: prevState.minuteListHtml
     }));
-    console.log(this.state.session.seconds);
   }
 
   setMessage(event) {
