@@ -36,7 +36,7 @@ class App extends Component {v
     // Request logs for day
     let self = this;
 
-     fetch('http://localhost:3001/')
+     fetch('https://ancient-caverns-61221.herokuapp.com/')
       .then(
         function(response) {
           if (response.status !== 200) {
@@ -161,7 +161,7 @@ class App extends Component {v
     let self = this;
     if(this.state.break.seconds === 0){ // Completed a session successfully
 
-      fetch('http://localhost:3001', {
+      fetch('https://ancient-caverns-61221.herokuapp.com/', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json; charset=utf-8"
