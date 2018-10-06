@@ -37,7 +37,7 @@ class App extends Component {v
     let self = this;
 
      fetch('https://ancient-caverns-61221.herokuapp.com/',{
-      method: 'POST',
+      method: 'GET',
       headers: {
         "Content-Type": "application/json; charset=utf-8"
       },
