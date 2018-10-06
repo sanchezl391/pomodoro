@@ -40,8 +40,7 @@ class App extends Component {v
       method: 'GET',
       headers: {
         "Content-Type": "application/json; charset=utf-8"
-      },
-      body: JSON.stringify({ minutes: self.state.session.finalSessionMinutes })
+      }      
       })
       .then(
         function(response) {
