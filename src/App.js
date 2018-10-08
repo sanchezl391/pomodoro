@@ -51,6 +51,7 @@ class App extends Component {v
           }
 
           response.json().then(function(data) {
+            if(data.hasOwnProperty("mssg"))
             let minutesArr = [];
             data.forEach(function(minuteLog, index){ 
               minutesArr[index] = <li key={index}> { minuteLog.minutes } </li>;
