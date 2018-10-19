@@ -1,0 +1,45 @@
+.timerDisplayContainer {
+    flex: 1 1 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-ring__circle {
+    transition: stroke-dashoffset 0.35s;
+    /* Dash offset starts horizontally, so we need to rotate it */
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%,
+}
+
+p {
+    margin: 0;
+}
+
+.timerDisplayContainer .minutesLeft {
+    padding-bottom: 20px;
+}
+
+.timerDisplayContainer .textContainer {
+    position: absolute;
+    height: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.timerDisplayContainer .minutesLeft, .timerDisplayContainer .type {
+    color: white;
+}
+
+
+
+@media all and (max-width: 575px) {
+    .timerDisplayContainer {
+        flex: 1 1 70%;
+    }
+    .timerDisplayContainer .textContainer {
+        height: 100px;
+    }
+}

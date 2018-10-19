@@ -1,58 +1,15 @@
-.container {
+.timeAreaContainer {
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-
-.btn{
-  margin-left:20px;
-  width:50px;
-  padding: 5px;
-  text-align: center;
-}
-
-.mssgTitle {
-  width: 50%;
-  text-align: center;
-}
-
-textarea {
-  width: 50%;
-  margin: auto;
-}
-
-.startBtn, .cancelBtn {
-  padding:  5px 10px 5px 10px;
-  margin-top: 20px;
-  font-size: 30px;
-  width: auto;
-  height: auto;
-}
-
-.startBtn {
-  background-color:#16a085;
-  color: white;
-}
-
-.cancelBtn {
-  background-color: #c0392b;
-  color: white;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #2f3542;
 }
 
 
-.btn:hover {
-  cursor: pointer;
-  border-radius:15%;
-}
-
-.breakRow {
-  display: flex;
-}
-
-.textAreaHidden {
-  visibility: hidden;
-}
-
-.textAreaVisible {
-  visibility: visible;
+@media all and (max-width: 575px) {  
+  .timeAreaContainer {
+      min-height: calc(100vh - 150px);
+  }
 }

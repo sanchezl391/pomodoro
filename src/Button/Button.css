@@ -1,0 +1,25 @@
+.buttonContainer {
+    flex: 1 1 30%;
+    color:white;
+    display: flex;
+    justify-content: center;
+}
+
+.buttonContainer .btn{
+    align-self: center;
+    justify-content: center;
+    color: white;
+    border-radius: 50%;
+    border: 2px solid #57606f;
+    padding: 20px 20px 20px 20px;
+}
+
+.buttonContainer .btn:hover{
+    background-color: #4a69bd;
+}
+
+@media all and (max-width: 575px) {  
+    .buttonContainer {
+        flex: 1 1 10%;
+    }
+}

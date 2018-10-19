@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+}
+
+@media all and (max-width: 575px) {  
+    .container {
+        flex-direction: column;
+    }
+}

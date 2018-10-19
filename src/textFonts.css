@@ -1,0 +1,38 @@
+.sourceCode {
+    font-family: 'Source Code Pro', monospace;
+}
+
+.ubuntu {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.superTitle {
+    font-size: 70px;
+}
+
+.title {
+    font-size: 40px;
+}
+
+.subheader {
+    font-size: 30px;
+}
+
+.regularText {
+    font-size: 20px;
+}
+
+@media all and (max-width: 575px) {  
+    .superTitle {
+        font-size: 50px;
+    }
+    .title {
+        font-size: 30px;
+    }
+    .subheader {
+        font-size: 20px;
+    }
+    .regularText {
+        font-size: 20px;
+    }
+}
