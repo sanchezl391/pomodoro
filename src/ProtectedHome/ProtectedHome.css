@@ -1,0 +1,15 @@
+.timeAreaContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #2f3542;
+  }
+  
+  
+  @media all and (max-width: 575px) {  
+    .timeAreaContainer {
+        min-height: calc(100vh - 150px);
+    }
+  }

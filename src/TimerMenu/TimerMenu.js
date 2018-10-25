@@ -126,7 +126,6 @@ class TimerMenu extends Component {
             width: window.innerWidth,
             open: prevState.open
         }));
-        console.log(window.innerWidth);
     }
 
     componentWillUnmount() {
