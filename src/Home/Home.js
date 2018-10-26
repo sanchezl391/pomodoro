@@ -11,7 +11,8 @@ class Home extends Component {
     this.state= {
       signInState: true,
       authenticated: false,
-      username: ''
+      username: '',
+      successMessage: ' '
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.registerUser = this.registerUser.bind(this);
@@ -25,24 +26,26 @@ class Home extends Component {
     let submitBtnText = (signInState) ? 'LOGIN' : 'REGISTER';
 
     if ( authenticated )
-      return <ProtectedHome username={ this.state.username }/>
+      return <ProtectedHome 
+            logoutUser={this.logoutUser}
+            ctx={this} 
+            username={ this.state.username }/>;
     else
       return <div className="homeContainer">
         <div className="centeredContainer">
           <div className="ubuntu subheader actionContainers">
             <p 
               className={signInBtnClasses}
-              onClick={
-                () => 
-                  this.setState({ signInState: true, authenticated: false, username: '' })}
+              onClick={ () => this.handleSignInModeClicked() }
               >SIGN IN
             </p>
             <p 
               className={signUpBtnClasses}
-              onClick={() => this.setState({signInState: false, authenticated: false, username: ''})}
+              onClick={ () => this.handleSignUpModeClicked() }
               >SIGN UP
             </p>
           </div>
+          <div className='regularText ubuntu successMessage'>{this.state.successMessage}</div>
           <div className="inputContainer">
             <form 
               onSubmit={this.handleSubmit} 
@@ -67,11 +70,29 @@ class Home extends Component {
                   required="required"
                   name='password'/>
               </div>
-              <button className='regularText' type="submit">{submitBtnText}</button>
+              <button className='regularText ubuntu' type="submit">{submitBtnText}</button>
             </form>
           </div>
         </div>
       </div>;
+  }
+
+  handleSignUpModeClicked() {
+    this.setState((prevState, props) => ({
+      signInState: false, 
+      authenticated:prevState.authenticated, 
+      username: prevState.username,
+      successMessage: prevState.successMessage
+    }))
+  }
+
+  handleSignInModeClicked() {
+    this.setState((prevState, props) => ({
+      signInState: true, 
+      authenticated:prevState.authenticated, 
+      username: prevState.username,
+      successMessage: prevState.successMessage
+    }))
   }
 
   handleSubmit (e) {
@@ -86,7 +107,6 @@ class Home extends Component {
   registerUser (e) {
     let inputData = e.target; // access with inputData.username.value
     // Hashing the pw
-    
     bcrypt.genSalt(10, function(err, salt){
       bcrypt.hash(inputData.password.value, salt, function(err, hash){
         if(err) {
@@ -107,23 +127,34 @@ class Home extends Component {
             })
             .then(function (data) {
               if(data.success)
-                console.log('success');
+                this.setState((prevState, props) => ({
+                  authenticated: true,
+                  signInState: prevState.signInState,
+                  username: inputData.username.value,
+                  successMessage: prevState.successMessage
+                }));
               else  
-                console.log('failure');
-            })
+                this.setState((prevState, props) => ({
+                  authenticated: false,
+                  signInState: prevState.signInState,
+                  username: prevState.username,
+                  successMessage: 'Username already exists'
+                }));
+            }.bind(this))
             .catch(function(err) {
                 console.log('Fetch Error :-S', err);
             });
         }
-      })       
-    }); 
+      }.bind(this))       
+    }.bind(this)); 
   }
 
   logoutUser() {
     this.setState((prevState, props) => ({
       authenticated: false,
       signInState: prevState.signInState,
-      username: prevState.username
+      username: prevState.username,
+      successMessage: ''
     }));
   }
 
@@ -142,14 +173,18 @@ class Home extends Component {
       })    
     }).then( function(response) { 
         if(response.status === 401) // Wrong Username or Password
-          console.log('There was an error logging in');
-        else{ // Correct Username and password
+          this.setState((prevState, props) => ({
+            authenticated: false,
+            signInState: prevState.signInState,
+            username: prevState.username,
+            successMessage: 'Incorrect username or password'
+          }));
+        else // Correct Username and password
           this.setState((prevState, props) => ({
             authenticated: true,
             signInState: prevState.signInState,
             username: inputData.username.value
           }));
-        }
       }.bind(this))
       .catch(function(err) {
         console.log(err);

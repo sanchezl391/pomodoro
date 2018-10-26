@@ -6,7 +6,37 @@
     min-height: 100vh;
     background-color: #2f3542;
   }
+
+  /* html, body {
+    min-width: 100vh;
+    min-height: 100vh;
+  } */
   
+  .protectedHomeContainer .sessionMinutes {
+    color:#a4b0be;
+    flex: 1 1 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .timeAreaContainer .logout {
+    position: fixed;
+    color:#a4b0be;
+    top: 5px;
+    right:10px;
+  }
+
+  .timeAreaContainer .logout:hover {
+    transition-property: all;
+    transition-duration: .5s;
+    transition-timing-function: ease-in-out;
+    border-bottom: 2px solid #3498db;
+  }
+
+  .timeAreaContainer .logout:hover {
+    cursor: pointer;
+  }
   
   @media all and (max-width: 575px) {  
     .timeAreaContainer {

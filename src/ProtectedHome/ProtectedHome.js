@@ -33,6 +33,7 @@ class ProtectedHome extends Component {
     };
 
     this.setMessage = this.setMessage.bind(this);
+    this.logoutUser = this.props.logoutUser.bind(this.props.ctx);
   }
 
   // componentDidMount() {
@@ -88,6 +89,11 @@ class ProtectedHome extends Component {
           setMessage={this.setMessage}
         />
         <div className="timeAreaContainer">
+          <p 
+            className='regularText logout'
+            onClick={() => this.logoutUser()}>
+              Logout
+            </p>
           <Timer 
             breakSecondsLeft={this.state.break.seconds}
             sessionSecondsLeft={this.state.session.seconds}
@@ -100,6 +106,7 @@ class ProtectedHome extends Component {
             toggleState={this.toggleState}
             ctx={this}
           />
+          <p className='sessionMinutes regularText ubuntu'> You have completed 20 minutes today </p>
         </div>
       </div>
     ;

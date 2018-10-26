@@ -1,5 +1,5 @@
 .buttonContainer {
-    flex: 1 1 30%;
+    flex: 1 1 25%;
     color:white;
     display: flex;
     justify-content: center;
@@ -15,7 +15,10 @@
 }
 
 .buttonContainer .btn:hover{
-    background-color: #4a69bd;
+    background-color: #3498db;
+    transition-property: all;
+    transition-duration: .5s;
+    transition-timing-function: ease-in-out;
 }
 
 @media all and (max-width: 575px) {  
