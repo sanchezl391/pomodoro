@@ -42,7 +42,7 @@ class ProtectedHome extends Component {
 
   getLogs() {
     // Request logs for day
-    fetch('https://task-focus-api/getLogs',{
+    fetch('https://task-focus-api.herokuapp.com/getLogs',{
       method: 'POST',
       headers: {
         "Content-Type": "application/json; charset=utf-8"
@@ -162,7 +162,7 @@ class ProtectedHome extends Component {
     let self = this;
     if(this.state.break.seconds === 0){ // Completed a session successfully
 
-      fetch('https://task-focus-api/insertLog', {
+      fetch('https://task-focus-api.herokuapp.com/insertLog', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json; charset=utf-8"

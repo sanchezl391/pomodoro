@@ -113,7 +113,7 @@ class Home extends Component {
           console.log(err);
         } 
         else {
-          fetch('https://task-focus-api/register/',{
+          fetch('https://task-focus-api.herokuapp.com/register/',{
             method: 'POST',
             headers: {
               "Content-Type": "application/json; charset=utf-8"
@@ -162,7 +162,7 @@ class Home extends Component {
     let inputData = e.target; // access with inputData.username.value
     let pw = inputData.password.value;
 
-    fetch('https://task-focus-api/login/',{
+    fetch('https://task-focus-api.herokuapp.com/login/',{
       method: 'POST',
       headers: {
         "Content-Type": "application/json; charset=utf-8"
