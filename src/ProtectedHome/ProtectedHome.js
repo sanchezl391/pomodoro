@@ -42,12 +42,15 @@ class ProtectedHome extends Component {
 
   getLogs() {
     // Request logs for day
-    fetch('http://localhost:3001/getLogs',{
-      method: 'GET',
+    fetch('https://task-focus-api/getLogs',{
+      method: 'POST',
       headers: {
         "Content-Type": "application/json; charset=utf-8"
-      }      
-      })
+      },
+      body: JSON.stringify({ 
+        username: this.props.username
+      })      
+    })
       .then(
         function(response) {
           if (response.status !== 200) {
@@ -159,7 +162,7 @@ class ProtectedHome extends Component {
     let self = this;
     if(this.state.break.seconds === 0){ // Completed a session successfully
 
-      fetch('http://localhost:3001/insertLog', {
+      fetch('https://task-focus-api/insertLog', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json; charset=utf-8"
