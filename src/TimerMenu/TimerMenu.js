@@ -25,7 +25,8 @@ class TimerMenu extends Component {
         let arrowIcon = this.getArrowIcon();
 
         let messageClasses = (this.state.messageIsOpen) ? 'messageTextDialog visible' : 'messageTextDialog hidden' ;
-        let messageOverlayClasses = (this.state.messageIsOpen) ? 'messageOverlay visible' : 'messageOverlay hidden' ;
+        let messageOverlayClasses = (this.state.messageIsOpen) ? 'messageOverlay visible' : 'messageOverlay hidden';
+        let sessionInputClasses = (this.props.errorInSession) ? 'sourceCode regularText time errorInSession' : 'sourceCode regularText time';
 
         if(!this.state.open)
             drawerContainerClasses = 'timerMenuContainer closed';
@@ -34,14 +35,16 @@ class TimerMenu extends Component {
             <div className={drawerContainerClasses}>
                 <div className='drawerContainer'>
                     <div className="timerDrawerContainer">
-                        <p className='ubuntu subheader drawerTitle'>TIMERS</p>
+                        <p className='ubuntu regularText drawerTitle'>TIMERS</p>
                         <div className="timerContainer">
                             <p className='ubuntu regularText timerType'>Work</p>
                             <input 
                                 onChange={this.handleMinuteSessionChange}
-                                className='sourceCode regularText time' 
+                                className={sessionInputClasses} 
                                 placeholder='25' 
                                 type="number"
+                                min={1}
+                                required="required"
                                 />
                         </div>
                         <div className="divider"></div>
@@ -50,7 +53,7 @@ class TimerMenu extends Component {
                             <input 
                                 onChange={this.handleMinuteBreakChange} 
                                 className='sourceCode regularText time' 
-                                min={1} 
+                                // min={1} 
                                 placeholder='5' 
                                 type="number"/>
                         </div>

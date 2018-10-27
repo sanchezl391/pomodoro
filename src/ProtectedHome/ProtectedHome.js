@@ -29,53 +29,52 @@ class ProtectedHome extends Component {
         }
       },
       stateActive: false,
-      stateSession: true
+      stateSession: true,
+      timerMenu: {
+        errorInSession: false
+      },
+      compeletedMinutes:0 
     };
 
     this.setMessage = this.setMessage.bind(this);
     this.logoutUser = this.props.logoutUser.bind(this.props.ctx);
   }
 
-  // componentDidMount() {
-  //   // Request logs for day
-  //   let self = this;
+  getLogs() {
+    // Request logs for day
+    fetch('http://localhost:3001/getLogs',{
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json; charset=utf-8"
+      }      
+      })
+      .then(
+        function(response) {
+          if (response.status !== 200) {
+            console.log('Looks like there was a problem. Status Code: ' +
+              response.status);
+            return;
+          }
 
-  //    fetch('https://ancient-caverns-61221.herokuapp.com/',{
-  //     method: 'GET',
-  //     headers: {
-  //       "Content-Type": "application/json; charset=utf-8"
-  //     }      
-  //     })
-  //     .then(
-  //       function(response) {
-  //         if (response.status !== 200) {
-  //           console.log('Looks like there was a problem. Status Code: ' +
-  //             response.status);
-  //           return;
-  //         }
+          response.json().then(function(data) {
+            this.setState((prevState,props) => ({
+              break: prevState.break,
+              session: prevState.session,
+              stateActive:prevState.stateActive,
+              sessionActive: prevState.sessionActive,
+              completedMinutes: data.minutes
+            }));  
+          }.bind(this));     
+        }.bind(this)
+      )
+      .catch(function(err) {
+        console.log('Fetch Error :-S', err);
+      });
+  }
 
-  //         response.json().then(function(data) {
-  //           if(data.hasOwnProperty("mssg")){
-  //             return
-  //           }
-            
-  //           let minutesArr = [];
-  //           data.forEach(function(minuteLog, index){ 
-  //             minutesArr[index] = <li key={index}> { minuteLog.minutes } </li>;
-  //           });
-  
-  //           self.setState((prevState, props) => ({
-  //             break: prevState.break,
-  //             session: prevState.session,
-  //             btnClasses: prevState.btnClasses
-  //           }));
-  //         });
-  //       }
-  //     )
-  //     .catch(function(err) {
-  //       console.log('Fetch Error :-S', err);
-  //     });
-  // }
+  componentDidMount() {
+    this.getLogs();
+  }
 
   render() {
     let html = 
@@ -87,8 +86,9 @@ class ProtectedHome extends Component {
           setFinalBreakMinutes={this.setFinalBreakMinutes}
           setFinalSessionMinutes={this.setFinalSessionMinutes}
           setMessage={this.setMessage}
+          errorInSession={this.state.timerMenu.errorInSession}
         />
-        <div className="timeAreaContainer">
+        <div className="timeAreaContainer container">
           <p 
             className='regularText logout'
             onClick={() => this.logoutUser()}>
@@ -106,7 +106,10 @@ class ProtectedHome extends Component {
             toggleState={this.toggleState}
             ctx={this}
           />
-          <p className='sessionMinutes regularText ubuntu'> You have completed 20 minutes today </p>
+          <p 
+            className='sessionMinutes regularText ubuntu'>
+              completed {this.state.completedMinutes} minutes today 
+          </p>
         </div>
       </div>
     ;
@@ -115,50 +118,73 @@ class ProtectedHome extends Component {
 
   toggleState() {
     let stateActive = !this.state.stateActive;
-    
-
-    if(stateActive) // timer will start
+    // check if there is a valid time to start the timer
+    if(stateActive && this.state.session.seconds) {// timer will start
       this.timer = setInterval(() => this.decrementOneSecondFromSession(), 1000);
-    else { // timer is paused
-      clearInterval(this.timer);
+      this.setState((prevState, props)=> ({
+        break:prevState.break,
+        session:prevState.session,
+        stateActive:stateActive,
+        timerMenu: { errorInSession: false },
+        completedMinutes: prevState.completedMinutes
+      }));
     }
-
-    this.setState((prevState, props)=> ({
-      break:prevState.break,
-      session:prevState.session,
-      stateActive:stateActive
-    }));
+    else { // timer is paused or trying to start an emty timer 
+      clearInterval(this.timer);
+      let breakSecondsSet = typeof this.state.session.seconds === 'number';
+      let sessionSecondsSet = typeof this.state.break.seconds === 'number';
+      if(!breakSecondsSet || !sessionSecondsSet)
+        this.setState((prevState, props) => ({
+          break:prevState.break,
+          session:prevState.session,
+          stateActive: prevState.stateActive,
+          stateSession: prevState.stateSession,
+          timerMenu: { errorInSession: true },
+          completedMinutes: prevState.completedMinutes
+        }));
+      else  
+        this.setState((prevState, props) => ({
+          break:prevState.break,
+          session:prevState.session,
+          stateActive: !prevState.stateActive,
+          stateSession: true,
+          timerMenu: { errorInSession: false },
+          completedMinutes: prevState.completedMinutes
+        }));
+    }
   }
 
   decrementOneSecondFromBreak() {
-    // console.log('Session: ' + this.state.session.seconds);
-    // console.log('Break: ' + this.state.break.seconds);
     let newSeconds = this.state.break.seconds - 1;
-    // let self = this;
+    let self = this;
     if(this.state.break.seconds === 0){ // Completed a session successfully
 
-      // fetch('https://ancient-caverns-61221.herokuapp.com/', {
-      //   method: 'POST',
-      //   headers: {
-      //     "Content-Type": "application/json; charset=utf-8"
-      //   },
-      //   body: JSON.stringify({ minutes: self.state.session.finalSessionMinutes })
-      // })
-      // .then( function(response) {
-      //   if (response.status !== 200) {
-      //     console.log('Looks like there was a problem. Status Code: ' +
-      //       response.status);
-      //     return;
-      //   }
-      // })
-      // .catch(function(err) {
-      //   console.log('Fetch Error :-S', err);
-      // });
+      fetch('http://localhost:3001/insertLog', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        body: JSON.stringify({ 
+          username: this.props.username, 
+          minutes: self.state.session.finalSessionMinutes 
+        })
+      })
+      .then( function(response) {
+        if (response.status !== 200) {
+          console.log('Looks like there was a problem. Status Code: ' +
+            response.status);
+          return;
+        }
+      }.bind(this))
+      .catch(function(err) {
+        console.log('Fetch Error :-S', err);
+      });
       clearInterval(this.timer);
       newSeconds = 0;
+      this.getLogs();
       this.toggleState();
     }
-
+    
     this.setState((prevState, props) => ({
       break: {
         finalBreakMinutes: prevState.break.finalBreakMinutes, 
@@ -168,7 +194,9 @@ class ProtectedHome extends Component {
       },
       session: prevState.session,
       stateActive: prevState.stateActive,
-      stateSession: prevState.stateSession
+      stateSession: prevState.stateSession,
+      timerMenu: prevState.timerMenu,
+      completedMinutes: prevState.completedMinutes
     }));
   }
 
@@ -190,7 +218,9 @@ class ProtectedHome extends Component {
         sessionClasses: prevState.session.sessionClasses
       },
       stateActive: prevState.stateActive,
-      stateSession: stateSession
+      stateSession: stateSession,
+      timerMenu: prevState.timerMenu,
+      completedMinutes: prevState.completedMinutes
     }));
   }
 
@@ -205,7 +235,9 @@ class ProtectedHome extends Component {
       },
       session: prevState.session,
       stateActive: prevState.stateActive,
-      stateSession: prevState.stateSession
+      stateSession: prevState.stateSession,
+      timerMenu: prevState.timerMenu,
+      completedMinutes: prevState.completedMinutes
     }));
   }
 
@@ -220,7 +252,9 @@ class ProtectedHome extends Component {
         sessionClasses: prevState.session.sessionClasses
       },
       stateActive: prevState.stateActive,
-      stateSession: prevState.stateSession
+      stateSession: prevState.stateSession,
+      timerMenu: prevState.timerMenu,
+      completedMinutes: prevState.completedMinutes
     }));
   }
   setFinalBreakMinutes(minutes) {
@@ -234,7 +268,9 @@ class ProtectedHome extends Component {
       },
       session: prevState.session,
       stateActive: prevState.stateActive,
-      stateSession: prevState.stateSession
+      stateSession: prevState.stateSession,
+      timerMenu: prevState.timerMenu,
+      completedMinutes: prevState.completedMinutes
     }));
   }
 }

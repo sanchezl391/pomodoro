@@ -22,6 +22,21 @@
     font-size: 20px;
 }
 
+/* @media all and (max-width: 400px) {  
+    .superTitle {
+        font-size: 50px;
+    }
+    .title {
+        font-size: 30px;
+    }
+    .subheader {
+        font-size: 20px;
+    }
+    .regularText {
+        font-size: 20px;
+    }
+} */
+
 @media all and (max-width: 575px) {  
     .superTitle {
         font-size: 50px;
@@ -36,3 +51,33 @@
         font-size: 20px;
     }
 }
+
+@media all and (max-width: 700px) {  
+    .superTitle {
+        font-size: 60px;
+    }
+    .title {
+        font-size: 50px;
+    }
+    .subheader {
+        font-size: 40px;
+    }
+    .regularText {
+        font-size: 20px;
+    }
+}
+@media all and (max-width: 1500px) {  
+    .superTitle {
+        font-size: 70px;
+    }
+    .title {
+        font-size: 60px;
+    }
+    .subheader {
+        font-size: 50px;
+    }
+    .regularText {
+        font-size: 40px;
+    }
+}
+

@@ -64,7 +64,7 @@ class Home extends Component {
                 <p className='regularText'><FontAwesomeIcon icon='lock'/></p>
                 <input 
                   className='regularText ubuntu' 
-                  type="text" 
+                  type="password" 
                   minLength={1} 
                   placeholder='Password'
                   required="required"

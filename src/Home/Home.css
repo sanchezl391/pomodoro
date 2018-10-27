@@ -21,6 +21,21 @@
     width: 50%;
 }
 
+@media all and (max-width: 575px) {  
+    .centeredContainer {
+        width: 90%;
+    }
+    .homeContainer .actionContainers {
+        flex-direction: column;
+    }
+}
+
+@media all and (max-width: 750px) {  
+    .centeredContainer {
+        width: 90%;
+    }
+}
+
 .inputContainer {
     width: 100%;
 }
