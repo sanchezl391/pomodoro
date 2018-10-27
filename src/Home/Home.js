@@ -113,7 +113,7 @@ class Home extends Component {
           console.log(err);
         } 
         else {
-          fetch('http://localhost:3001/register/',{
+          fetch('https://task-focus-api/register/',{
             method: 'POST',
             headers: {
               "Content-Type": "application/json; charset=utf-8"
@@ -162,7 +162,7 @@ class Home extends Component {
     let inputData = e.target; // access with inputData.username.value
     let pw = inputData.password.value;
 
-    fetch('http://localhost:3001/login/',{
+    fetch('https://task-focus-api/login/',{
       method: 'POST',
       headers: {
         "Content-Type": "application/json; charset=utf-8"
