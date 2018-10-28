@@ -116,7 +116,7 @@ class ProtectedHome extends Component {
       method: 'POST',
       body: JSON.stringify(subscription),
       headers: {
-        'content-type': 'application/json'
+        'Content-type': 'application/json; charset=utf-8'
       }
     });
   }
