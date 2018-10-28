@@ -84,7 +84,7 @@ class ProtectedHome extends Component {
   }
   
   pushEventListener() {
-    self.addEventListener("push", event => {
+    window.self.addEventListener("push", event => {
       const data = event.data.json()
       const { title } = data
 
@@ -93,7 +93,7 @@ class ProtectedHome extends Component {
         icon: data.icon
       }
 
-      event.waitUntil(self.registration.showNotification(title, body))
+      event.waitUntil(window.self.registration.showNotification(title, body))
     })
   }
 
