@@ -80,7 +80,7 @@ class ProtectedHome extends Component {
     this.pushEventListener();
     // Check for service worker
     if('serviceWorker' in navigator) 
-      send().catch(err => console.error(err));
+      this.send().catch(err => console.error(err));
   }
   
   pushEventListener() {
