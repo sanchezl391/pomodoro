@@ -77,53 +77,12 @@ class ProtectedHome extends Component {
 
   componentDidMount() {
     this.getLogs();
-    // this.pushEventListener();
-    // Check for service worker
-    console.log(process.env.NODE_ENV);
-    if('serviceWorker' in navigator && process.env.NODE_ENV === 'production') 
-      this.send().catch(err => console.error('Error: ' + err));
   }
-  
-  // pushEventListener() {
-  //   window.self.addEventListener("push", event => {
-  //     const data = event.data.json()
-  //     const { title } = data
-
-  //     const body = {
-  //       body: data.body,
-  //       icon: data.icon
-  //     }
-
-  //     event.waitUntil(window.self.registration.showNotification(title, body))
-  //   })
-  // }
 
   // Register SW,register push, send push
-  async send() {
-    console.log('registering service worker');
-    // registering service worker
-    const register = await navigator.serviceWorker.register('./worker.js', {
-      scope: '/' // url for where the service worker should work
-    });
-
-    // service worker registered
-    // register push
-    console.log('registering push');
-    const subscription = await register.pushManager.subscribe({
-      userVisibleOnly:true,
-      applicationServerKey: this.urlBase64ToUint8Array(process.env.publicVapidKey)
-    });
-
-    console.log('sending push notification');
-    // send push notification
-    await fetch('https://task-focus.herokuapp.com/subscribe', {
-      method: 'POST',
-      body: JSON.stringify(subscription),
-      headers: {
-        'Content-type': 'application/json; charset=utf-8'
-      }
-    });
-  }
+  // async send() {
+    
+  // }
 
   urlBase64ToUint8Array(base64String) {
     const padding = '='.repeat((4 - base64String.length % 4) % 4);
