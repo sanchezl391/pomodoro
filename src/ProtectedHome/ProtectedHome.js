@@ -77,32 +77,32 @@ class ProtectedHome extends Component {
 
   componentDidMount() {
     this.getLogs();
-    this.pushEventListener();
+    // this.pushEventListener();
     // Check for service worker
     if('serviceWorker' in navigator) 
       this.send().catch(err => console.error('Error: ' + err));
   }
   
-  pushEventListener() {
-    window.self.addEventListener("push", event => {
-      const data = event.data.json()
-      const { title } = data
+  // pushEventListener() {
+  //   window.self.addEventListener("push", event => {
+  //     const data = event.data.json()
+  //     const { title } = data
 
-      const body = {
-        body: data.body,
-        icon: data.icon
-      }
+  //     const body = {
+  //       body: data.body,
+  //       icon: data.icon
+  //     }
 
-      event.waitUntil(window.self.registration.showNotification(title, body))
-    })
-  }
+  //     event.waitUntil(window.self.registration.showNotification(title, body))
+  //   })
+  // }
 
   // Register SW,register push, send push
   async send() {
     console.log('registering service worker');
     // registering service worker
     const register = await navigator.serviceWorker.register('./worker.js', {
-      scope: '/'
+      scope: '/' // url for where the service worker should work
     });
 
     // service worker registered
