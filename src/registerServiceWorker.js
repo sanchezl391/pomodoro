@@ -72,7 +72,7 @@ const isLocalhost = Boolean(
       .register(swUrl)
       .then(registration => {
         console.log('service worker registered');
-        const subscription = register.pushManager.subscribe({
+        const subscription = registration.pushManager.subscribe({
           userVisibleOnly:true,
           applicationServerKey: urlBase64ToUint8Array(process.env.publicVapidKey)
         });
