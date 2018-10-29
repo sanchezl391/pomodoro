@@ -79,7 +79,8 @@ class ProtectedHome extends Component {
     this.getLogs();
     // this.pushEventListener();
     // Check for service worker
-    if('serviceWorker' in navigator) 
+    console.log(process.env.NODE_ENV);
+    if('serviceWorker' in navigator && process.env.NODE_ENV === 'production') 
       this.send().catch(err => console.error('Error: ' + err));
   }
   
