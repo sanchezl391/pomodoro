@@ -23,5 +23,5 @@ async function registerServiceWorker() {
         }
     });
 }
-
+//
 export default registerServiceWorker;
