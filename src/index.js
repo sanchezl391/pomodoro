@@ -10,7 +10,8 @@ import registerServiceWorker from './registerServiceWorker';
 library.add(faCaretUp, faLock, faUserAlt, faTimesCircle, faCaretDown, faCaretLeft, faPlay, faPause, faCaretRight, faClock, faCommentAlt);
 ReactDOM.render(<App />, document.getElementById('root'));
 
-if('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
+console.log('ENV: ' + process.env.NODE_ENV);
+if('serviceWorker' in navigator) {
     registerServiceWorker();
 }
     
