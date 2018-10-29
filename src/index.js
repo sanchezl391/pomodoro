@@ -10,8 +10,7 @@ import registerServiceWorker from './registerServiceWorker';
 library.add(faCaretUp, faLock, faUserAlt, faTimesCircle, faCaretDown, faCaretLeft, faPlay, faPause, faCaretRight, faClock, faCommentAlt);
 ReactDOM.render(<App />, document.getElementById('root'));
 
-console.log('ENV: ' + process.env.NODE_ENV);
-if('serviceWorker' in navigator) {
-    registerServiceWorker();
+if('serviceWorker' in navigator && process.env.NODE_ENV) {
+    registerServiceWorker().catch(err => console.log("Err: " + err));
 }
     

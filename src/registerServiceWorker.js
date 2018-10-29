@@ -1,7 +1,7 @@
 async function registerServiceWorker() {
     console.log('registering service worker');
     // registering service worker
-    const register = await navigator.serviceWorker.register('./worker.js', {
+    const register = await navigator.serviceWorker.register('/worker.js', {
         scope: '/' // url for where the service worker should work
     });
 
