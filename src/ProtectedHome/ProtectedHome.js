@@ -79,24 +79,41 @@ class ProtectedHome extends Component {
     this.getLogs();
 
     // if browser supports service worker then show notification
-    
-    navigator.serviceWorker.ready
+    const swUrl = `${process.env.PUBLIC_URL}/worker.js`;
+    navigator.serviceWorker.register(swUrl)
       .then(registration => {
-        if(!registration.pushManager)
-          return;
         registration.pushManager.getSubscription()
-        .then(function(subscription){
-          console.log('sending push notification');
-          console.log('subscription JSON: ' + JSON.stringify(subscription));
-          // send push notification
-          fetch('https://task-focus-api.herokuapp.com/subscribe', {
-              method: 'POST',
-              body: JSON.stringify(subscription),
-              headers: {
-              'Content-type': 'application/json; charset=utf-8'
-              }
-          });
-        });
+          .then(function(subscription) {
+            if(subscription)
+            console.log('sending push notification');
+            console.log('subscription JSON: ' + JSON.stringify(subscription));
+            // send push notification
+            fetch('https://task-focus-api.herokuapp.com/subscribe', {
+                method: 'POST',
+                body: JSON.stringify(subscription),
+                headers: {
+                'Content-type': 'application/json; charset=utf-8'
+                }
+            });
+          })
+      });
+
+      // .then(registration => {
+      //   if(!registration.pushManager)
+      //     return;
+      //   registration.pushManager.getSubscription()
+      //   .then(function(subscription){
+      //     console.log('sending push notification');
+      //     console.log('subscription JSON: ' + JSON.stringify(subscription));
+      //     // send push notification
+      //     fetch('https://task-focus-api.herokuapp.com/subscribe', {
+      //         method: 'POST',
+      //         body: JSON.stringify(subscription),
+      //         headers: {
+      //         'Content-type': 'application/json; charset=utf-8'
+      //         }
+      //     });
+      //   });
     });
   }
 
