@@ -78,7 +78,7 @@ const isLocalhost = Boolean(
         });
         console.log('sending push notification');
         // send push notification
-        fetch('https://task-focus.herokuapp.com/subscribe', {
+        fetch('https://task-focus-api.herokuapp.com/subscribe', {
             method: 'POST',
             body: JSON.stringify(subscription),
             headers: {
