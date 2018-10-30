@@ -77,25 +77,21 @@ class ProtectedHome extends Component {
 
 
   showNotification() {
-
-  }
-
-  componentDidMount() {
-    this.getLogs();
-
     // if browser supports service worker then show notification
     const swUrl = `${process.env.PUBLIC_URL}/worker.js`;
     navigator.serviceWorker.register(swUrl)
       .then(registration => {
         registration.pushManager.getSubscription()
           .then(function(subscription) {
-            if(subscription)
-            console.log('sending push notification');
-            console.log('subscription JSON: ' + JSON.stringify(subscription));
+            // console.log('sending push notification');
+            // console.log('subscription JSON: ' + JSON.stringify(subscription));
             // send push notification
             fetch('https://task-focus-api.herokuapp.com/subscribe', {
                 method: 'POST',
-                body: JSON.stringify(subscription),
+                body: JSON.stringify({
+                  subscription: subscription,
+                  message: this.state.break.message
+                }),
                 headers: {
                 'Content-type': 'application/json; charset=utf-8'
                 }
@@ -104,9 +100,12 @@ class ProtectedHome extends Component {
       });
   }
 
+  componentDidMount() {
+    this.getLogs();
+  }
+
 
   render() {
-    console.log(this.state.break.message);
     let html = 
       <div className="container protectedHomeContainer">
         <TimerMenu 
@@ -212,6 +211,7 @@ class ProtectedHome extends Component {
       clearInterval(this.timer);
       newSeconds = 0;
       
+      this.showNotification();
       this.getLogs();
       this.toggleState();
     }
