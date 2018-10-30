@@ -75,6 +75,11 @@ class ProtectedHome extends Component {
       });
   }
 
+
+  showNotification() {
+
+  }
+
   componentDidMount() {
     this.getLogs();
 
@@ -97,32 +102,11 @@ class ProtectedHome extends Component {
             });
           })
       });
-
-      // .then(registration => {
-      //   if(!registration.pushManager)
-      //     return;
-      //   registration.pushManager.getSubscription()
-      //   .then(function(subscription){
-      //     console.log('sending push notification');
-      //     console.log('subscription JSON: ' + JSON.stringify(subscription));
-      //     // send push notification
-      //     fetch('https://task-focus-api.herokuapp.com/subscribe', {
-      //         method: 'POST',
-      //         body: JSON.stringify(subscription),
-      //         headers: {
-      //         'Content-type': 'application/json; charset=utf-8'
-      //         }
-      //     });
-      //   });
-    // });
   }
 
-  // Register SW,register push, send push
-  // async send() {
-    
-  // }
 
   render() {
+    console.log(this.state.break.message);
     let html = 
       <div className="container protectedHomeContainer">
         <TimerMenu 
@@ -227,6 +211,7 @@ class ProtectedHome extends Component {
       });
       clearInterval(this.timer);
       newSeconds = 0;
+      
       this.getLogs();
       this.toggleState();
     }
