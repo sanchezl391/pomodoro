@@ -86,21 +86,8 @@ const isLocalhost = Boolean(
                 applicationServerKey: urlBase64ToUint8Array('BNg3yom88DUki2fR0vfO_JQX9amUnGrjAYizv3OvH4Mc5vK8TVSE2zEeFRgGLAj3F_ZvwQjejlNf_X2nbMqhTgE')
               });
             }
-          })
-          .then(function (subscription) { // use subscription to show notification
-            console.log('sending push notification');
-            console.log('subscription JSON: ' + JSON.stringify(subscription));
-            // send push notification
-            fetch('https://task-focus-api.herokuapp.com/subscribe', {
-                method: 'POST',
-                body: JSON.stringify(subscription),
-                headers: {
-                'Content-type': 'application/json; charset=utf-8'
-                }
-            });
           });
-     
- 
+      
         registration.onupdatefound = () => {
           const installingWorker = registration.installing;
           installingWorker.onstatechange = () => {
