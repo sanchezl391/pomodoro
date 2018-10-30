@@ -68,14 +68,13 @@ const isLocalhost = Boolean(
   }
 
   function registerValidSW(swUrl) {
-    console.log('public vapid key: ' + process.env.publicVapidKey);
     navigator.serviceWorker
       .register(swUrl)
       .then(registration => {
         console.log('service worker registered');
         const subscription = registration.pushManager.subscribe({
           userVisibleOnly:true,
-          applicationServerKey: urlBase64ToUint8Array(process.env.publicVapidKey)
+          applicationServerKey: urlBase64ToUint8Array('BNg3yom88DUki2fR0vfO_JQX9amUnGrjAYizv3OvH4Mc5vK8TVSE2zEeFRgGLAj3F_ZvwQjejlNf_X2nbMqhTgE')
         });
         console.log('sending push notification');
         // send push notification
