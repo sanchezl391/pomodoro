@@ -114,7 +114,7 @@ class ProtectedHome extends Component {
       //         }
       //     });
       //   });
-    });
+    // });
   }
 
   // Register SW,register push, send push
