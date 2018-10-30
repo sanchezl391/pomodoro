@@ -10,4 +10,4 @@ import registerServiceWorker from './registerServiceWorker';
 library.add(faCaretUp, faLock, faUserAlt, faTimesCircle, faCaretDown, faCaretLeft, faPlay, faPause, faCaretRight, faClock, faCommentAlt);
 ReactDOM.render(<App />, document.getElementById('root'));
 
-registerServiceWorker();
+registerServiceWorker.unregister();
