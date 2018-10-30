@@ -96,7 +96,7 @@ class ProtectedHome extends Component {
                 'Content-type': 'application/json; charset=utf-8'
                 }
             });
-          })
+          }.bind(this))
       });
   }
 
