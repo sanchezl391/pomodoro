@@ -68,6 +68,7 @@ const isLocalhost = Boolean(
   }
 
   function registerValidSW(swUrl) {
+    console.log('public vapid key: ' + process.env.publicVapidKey);
     navigator.serviceWorker
       .register(swUrl)
       .then(registration => {
