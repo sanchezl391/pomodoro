@@ -75,14 +75,19 @@ const isLocalhost = Boolean(
         console.log('service worker registered');
         registration.pushManager.getSubscription()
           .then(function(subscription){
-            if (subscription) console.log('already subscribed');
+            if (subscription) {
+              console.log('already subscribed');
+              return subscription;
+            }
             else { // subscribe if not subscribed
               console.log('Not subscribed, subscribing now');
-              const subscription = registration.pushManager.subscribe({
+              return registration.pushManager.subscribe({
                 userVisibleOnly:true,
                 applicationServerKey: urlBase64ToUint8Array('BNg3yom88DUki2fR0vfO_JQX9amUnGrjAYizv3OvH4Mc5vK8TVSE2zEeFRgGLAj3F_ZvwQjejlNf_X2nbMqhTgE')
               });
             }
+          })
+          .then(function (subscription) { // use subscription to show notification
             console.log('sending push notification');
             console.log('subscription JSON: ' + JSON.stringify(subscription));
             // send push notification
@@ -93,7 +98,7 @@ const isLocalhost = Boolean(
                 'Content-type': 'application/json; charset=utf-8'
                 }
             });
-          })
+          });
      
  
         registration.onupdatefound = () => {
