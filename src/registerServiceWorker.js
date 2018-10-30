@@ -52,6 +52,21 @@ const isLocalhost = Boolean(
     }
   }
 
+  function urlBase64ToUint8Array(base64String) {
+    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding)
+      .replace(/\-/g, '+')
+      .replace(/_/g, '/');
+  
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+  
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+    }
+    console.log('app server key: ' + outputArray);
+    return outputArray;
+  }
 
   function registerValidSW(swUrl) {
     navigator.serviceWorker
@@ -61,11 +76,11 @@ const isLocalhost = Boolean(
         registration.pushManager.getSubscription()
           .then(function(subscription){
             if (subscription) {
-              console.log('already subscribed');
+              // console.log('already subscribed');
               return subscription;
             }
             else { // subscribe if not subscribed
-              console.log('Not subscribed, subscribing now');
+              // console.log('Not subscribed, subscribing now');
               return registration.pushManager.subscribe({
                 userVisibleOnly:true,
                 applicationServerKey: urlBase64ToUint8Array('BNg3yom88DUki2fR0vfO_JQX9amUnGrjAYizv3OvH4Mc5vK8TVSE2zEeFRgGLAj3F_ZvwQjejlNf_X2nbMqhTgE')

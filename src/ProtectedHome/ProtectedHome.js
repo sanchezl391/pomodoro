@@ -75,22 +75,6 @@ class ProtectedHome extends Component {
       });
   }
 
-  urlBase64ToUint8Array(base64String) {
-    const padding = '='.repeat((4 - base64String.length % 4) % 4);
-    const base64 = (base64String + padding)
-      .replace(/\-/g, '+')
-      .replace(/_/g, '/');
-  
-    const rawData = window.atob(base64);
-    const outputArray = new Uint8Array(rawData.length);
-  
-    for (let i = 0; i < rawData.length; ++i) {
-      outputArray[i] = rawData.charCodeAt(i);
-    }
-    console.log('app server key: ' + outputArray);
-    return outputArray;
-  }
-
   showNotification() {
     // if browser supports service worker then show notification
     const swUrl = `${process.env.PUBLIC_URL}/worker.js`;
@@ -98,26 +82,16 @@ class ProtectedHome extends Component {
       .then(registration => {
         registration.pushManager.getSubscription()
           .then(function(subscription) {
-            if (subscription) 
-              return subscription;
-            else { // subscribe if not subscribed
-              return registration.pushManager.subscribe({
-                userVisibleOnly:true,
-                applicationServerKey: this.urlBase64ToUint8Array('BNg3yom88DUki2fR0vfO_JQX9amUnGrjAYizv3OvH4Mc5vK8TVSE2zEeFRgGLAj3F_ZvwQjejlNf_X2nbMqhTgE')
-              });
-            }
-          }.bind(this))
-          .then(function(subscription) {
             // send push notification
             fetch('https://task-focus-api.herokuapp.com/subscribe', {
-                method: 'POST',
-                body: JSON.stringify({
-                  subscription: subscription,
-                  message: this.state.break.message
-                }),
-                headers: {
-                'Content-type': 'application/json; charset=utf-8'
-                }
+              method: 'POST',
+              body: JSON.stringify({
+                subscription: subscription,
+                message: this.state.break.message
+              }),
+              headers: {
+              'Content-type': 'application/json; charset=utf-8'
+              }
             });
           }.bind(this))
       });

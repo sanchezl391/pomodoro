@@ -6,7 +6,7 @@ self.addEventListener('push', e => {
     console.log('push received');
     // show notification
     self.registration.showNotification(data.title, {
-        body: 'Notidied By Luis',
+        body: 'Your break is here! Make the most of it!',
         icon: './pomodoro-icon.png'
     })
 });
