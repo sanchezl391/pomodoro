@@ -67,7 +67,7 @@ const isLocalhost = Boolean(
     return outputArray;
   }
 
-  async function registerValidSW(swUrl) {
+  function registerValidSW(swUrl) {
     navigator.serviceWorker
       .register(swUrl)
       .then(registration => {
@@ -78,7 +78,7 @@ const isLocalhost = Boolean(
         });
         console.log('sending push notification');
         // send push notification
-        await fetch('https://task-focus-api.herokuapp.com/subscribe', {
+        fetch('https://task-focus-api.herokuapp.com/subscribe', {
             method: 'POST',
             body: JSON.stringify(subscription),
             headers: {
