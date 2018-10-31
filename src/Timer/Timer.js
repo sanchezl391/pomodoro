@@ -7,8 +7,7 @@ class Timer extends Component{
         super(props);
         
         this.state = {
-            calculations:  this.getCalculationsObj(200, 5),
-            progress: 0
+            calculations:  this.getCalculationsObj(200, 5)
         };
         this.updateCircleRadius = this.updateCircleRadius.bind(this);
     }
@@ -27,7 +26,7 @@ class Timer extends Component{
 
     render(){
         const {innerRadius, outerRadius, stroke, circumference} = this.state.calculations;
-        let progress = this.state.progress;
+        let progress = this.props.progress;
         let timeStr = this.makeTimeStr();
         let type = (this.props.stateSession) ? 'WORK' : 'BREAK' ;
 
@@ -79,8 +78,7 @@ class Timer extends Component{
         
         let radius = (smallestDimension - buttonPixels)/ 2;
         this.setState((prevState, props) => ({
-            calculations: this.getCalculationsObj(radius, 5),
-            progress: prevState.progress
+            calculations: this.getCalculationsObj(radius, 5)
         }));
     }
 
