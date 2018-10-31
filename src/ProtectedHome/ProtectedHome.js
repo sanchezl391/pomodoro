@@ -205,6 +205,7 @@ class ProtectedHome extends Component {
   decrementOneSecondFromBreak() {
     let newSeconds = this.state.break.seconds - 1;
     let self = this;
+    let stateSession = false;
     if(this.state.break.seconds === 0){ // Completed a session successfully
 
       fetch('https://task-focus-api.herokuapp.com/insertLog', {
@@ -229,10 +230,9 @@ class ProtectedHome extends Component {
       });
       clearInterval(this.timer);
       newSeconds = 0;
-      
+      stateSession = true;
       this.showNotification();
       this.getLogs();
-      this.toggleState();
     }
     
     this.setState((prevState, props) => ({
@@ -244,7 +244,7 @@ class ProtectedHome extends Component {
       },
       session: prevState.session,
       stateActive: prevState.stateActive,
-      stateSession: prevState.stateSession,
+      stateSession: stateSession,
       timerMenu: prevState.timerMenu,
       completedMinutes: prevState.completedMinutes
     }));
