@@ -1,7 +1,7 @@
 .timerMenuContainer {
     display: flex;
     /* min-width: 150px; */
-    background-color: #2f3542;
+    background-color: #34495e;
     min-height: 100vh;
     box-sizing: border-box; 
 }
@@ -31,7 +31,7 @@
 .open .timerDrawerContainer {
     /* margin: 10px 1px; */
     border-radius: 5px;
-    background-color:#57606f;
+    background-color:#34495e;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -49,7 +49,7 @@
 .open .divider {
     min-width: 100%;
     min-height: 2px;
-    background-color: #2f3542;
+    background-color: #34495e;
     border-radius: 5px;
     margin: 10px 0;
 }

@@ -62,8 +62,6 @@
     color: white;
 }
 
-
-
 .actionContainers .active {
     border-bottom: 1px solid #2980b9;
     text-decoration: none;
@@ -85,7 +83,6 @@
     align-items: center;
     box-sizing: border-box;
 }
-
 
 #login-form .password {
     margin-bottom: 20px;
