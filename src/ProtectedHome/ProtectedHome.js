@@ -232,7 +232,6 @@ class ProtectedHome extends Component {
       this.toggleState();
       newSeconds = 0;
       stateSession = true;
-      this.showNotification();
       this.getLogs();
     }
     
@@ -255,6 +254,7 @@ class ProtectedHome extends Component {
     let newSeconds = this.state.session.seconds - 1;
     let stateSession = this.state.stateSession;
     if(this.state.session.seconds === 0){
+      this.showNotification();
       // Remove Session timer
       clearInterval(this.timer);
       newSeconds = 0;

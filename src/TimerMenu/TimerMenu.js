@@ -81,7 +81,7 @@ class TimerMenu extends Component {
                         <textarea 
                             className='regularText ubuntu'
                             onChange={this.handleMessageChange}
-                            placeholder="Enter a message here to remind you to do a task when your session is done. \nE.g. Take out the trash and plan next day tasks."
+                            placeholder="Enter a message here to remind you to do a task when your session is done. E.g. Take out the trash and plan next day tasks."
                             >
                         </textarea>
                         <div 
