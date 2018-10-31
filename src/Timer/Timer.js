@@ -11,7 +11,6 @@ class Timer extends Component{
             progress: 0
         };
         this.updateCircleRadius = this.updateCircleRadius.bind(this);
-        this.updateProgress = this.updateProgress.bind(this);
     }
 
     getCalculationsObj(outerRadius, stroke) {
