@@ -158,6 +158,8 @@ class ProtectedHome extends Component {
   toggleState() {
     let stateActive = !this.state.stateActive;
     console.log('state active: ' + stateActive);
+
+    
     // handles pausing and resuming timer
     if(stateActive) {// timer will start
       if(this.state.session.seconds)
@@ -177,26 +179,31 @@ class ProtectedHome extends Component {
     else { // timer will be paused
       console.log('timer paused');
       clearInterval(this.timer);
-      let breakSecondsSet = typeof this.state.session.seconds === 'number';
-      let sessionSecondsSet = typeof this.state.break.seconds === 'number';
-      if(!breakSecondsSet || !sessionSecondsSet)
-        this.setState((prevState, props) => ({
-          break:prevState.break,
-          session:prevState.session,
-          stateActive: prevState.stateActive,
-          stateSession: prevState.stateSession,
-          timerMenu: { errorInSession: true },
-          completedMinutes: prevState.completedMinutes
-        }));
-      else  
-        this.setState((prevState, props) => ({
-          break:prevState.break,
-          session:prevState.session,
-          stateActive: !prevState.stateActive,
-          stateSession: true,
-          timerMenu: { errorInSession: false },
-          completedMinutes: prevState.completedMinutes
-        }));
+
+
+
+      // let breakSecondsSet = typeof this.state.session.seconds === 'number';
+      // let sessionSecondsSet = typeof this.state.break.seconds === 'number';
+
+
+      // if(!breakSecondsSet || !sessionSecondsSet)
+      //   this.setState((prevState, props) => ({
+      //     break:prevState.break,
+      //     session:prevState.session,
+      //     stateActive: prevState.stateActive,
+      //     stateSession: prevState.stateSession,
+      //     timerMenu: { errorInSession: true },
+      //     completedMinutes: prevState.completedMinutes
+      //   }));
+      // else  
+      //   this.setState((prevState, props) => ({
+      //     break:prevState.break,
+      //     session:prevState.session,
+      //     stateActive: !prevState.stateActive,
+      //     stateSession: true,
+      //     timerMenu: { errorInSession: false },
+      //     completedMinutes: prevState.completedMinutes
+      //   }));
     }
   }
 
