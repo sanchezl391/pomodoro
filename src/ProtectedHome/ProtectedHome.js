@@ -145,9 +145,9 @@ class ProtectedHome extends Component {
   }
 
   calculateProgress() {
-    let { stateSession } = this.state.stateSession;
-    let { finalBreakMinutes } = this.state.break.finalBreakMinutes;
-    let { finalSessionMinutes } = this.state.session.finalSessionMinutes;
+    let stateSession = this.state.stateSession;
+    let finalBreakMinutes = this.state.break.finalBreakMinutes;
+    let finalSessionMinutes = this.state.session.finalSessionMinutes;
 
     let finalSeconds = (stateSession) ? finalSessionMinutes * 60 : finalBreakMinutes * 60;
     let secondsLeft = (stateSession) ? this.state.session.seconds : this.state.break.seconds;
