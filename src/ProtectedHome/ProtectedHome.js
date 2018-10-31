@@ -159,13 +159,33 @@ class ProtectedHome extends Component {
     let stateActive = !this.state.stateActive;
     console.log('state active: ' + stateActive);
 
-    
+    // checks for empty session
+      let breakSecondsSet = typeof this.state.session.seconds === 'number';
+      let sessionSecondsSet = typeof this.state.break.seconds === 'number';
+
+      if(!breakSecondsSet || !sessionSecondsSet) {
+        this.setState((prevState, props) => ({
+          break:prevState.break,
+          session:prevState.session,
+          stateActive: prevState.stateActive,
+          stateSession: prevState.stateSession,
+          timerMenu: { errorInSession: true },
+          completedMinutes: prevState.completedMinutes
+        }));
+        return;
+      }
+        
     // handles pausing and resuming timer
     if(stateActive) {// timer will start
-      if(this.state.session.seconds)
+      if(this.state.session.seconds) {
+        console.log('starting session timer');
         this.timer = setInterval(() => this.decrementOneSecondFromSession(), 1000);
-      else if(this.state.break.seconds)
+      }        
+      else if(this.state.break.seconds) {
+        console.log('starting break timer');
         this.timer = setInterval(() => this.decrementOneSecondFromBreak(), 1000);
+      }
+        
       else  
         return;
       this.setState((prevState, props)=> ({
@@ -179,31 +199,6 @@ class ProtectedHome extends Component {
     else { // timer will be paused
       console.log('timer paused');
       clearInterval(this.timer);
-
-
-
-      // let breakSecondsSet = typeof this.state.session.seconds === 'number';
-      // let sessionSecondsSet = typeof this.state.break.seconds === 'number';
-
-
-      // if(!breakSecondsSet || !sessionSecondsSet)
-      //   this.setState((prevState, props) => ({
-      //     break:prevState.break,
-      //     session:prevState.session,
-      //     stateActive: prevState.stateActive,
-      //     stateSession: prevState.stateSession,
-      //     timerMenu: { errorInSession: true },
-      //     completedMinutes: prevState.completedMinutes
-      //   }));
-      // else  
-      //   this.setState((prevState, props) => ({
-      //     break:prevState.break,
-      //     session:prevState.session,
-      //     stateActive: !prevState.stateActive,
-      //     stateSession: true,
-      //     timerMenu: { errorInSession: false },
-      //     completedMinutes: prevState.completedMinutes
-      //   }));
     }
   }
 
@@ -259,6 +254,7 @@ class ProtectedHome extends Component {
     let newSeconds = this.state.session.seconds - 1;
     let stateSession = this.state.stateSession;
     if(this.state.session.seconds === 0){
+      // Remove Session timer
       clearInterval(this.timer);
       newSeconds = 0;
       stateSession = false;
