@@ -83,7 +83,7 @@
 }
 
 .timerMenuContainer .commentIcon:hover{
-    color:white;
+    color:#3498db;
 }
 
 .arrowContainer{
@@ -135,7 +135,7 @@
 }
 
 .messageTextDialog .saveBtn:hover {
-    background-color: #4a69bd;
+    background-color: #3498db;
 }
 
 .messageTextDialog .saveBtn {

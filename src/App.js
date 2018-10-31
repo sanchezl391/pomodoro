@@ -11,7 +11,6 @@ class App extends Component {
         <div>
           <Route path='/' component={ Home } />
           <Route path='/home' component={ ProtectedHome } />
-          <Route path='/new' component={ NewUser }/>
         </div>           
       </Router>
     );
