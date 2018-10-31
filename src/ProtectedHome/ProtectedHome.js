@@ -188,18 +188,18 @@ class ProtectedHome extends Component {
         
       else  
         return;
-      this.setState((prevState, props)=> ({
-        break:prevState.break,
-        session:prevState.session,
-        stateActive:stateActive,
-        timerMenu: { errorInSession: false },
-        completedMinutes: prevState.completedMinutes
-      }));
     }
     else { // timer will be paused
       console.log('timer paused');
       clearInterval(this.timer);
     }
+    this.setState((prevState, props)=> ({
+      break:prevState.break,
+      session:prevState.session,
+      stateActive:stateActive,
+      timerMenu: { errorInSession: false },
+      completedMinutes: prevState.completedMinutes
+    }));
   }
 
   decrementOneSecondFromBreak() {
