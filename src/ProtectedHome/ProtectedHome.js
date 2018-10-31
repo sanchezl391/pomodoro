@@ -122,7 +122,9 @@ class ProtectedHome extends Component {
             </p>
           <Timer 
             breakSecondsLeft={this.state.break.seconds}
+            finalBreakSeconds={this.state.break.finalBreakMinutes * 60}
             sessionSecondsLeft={this.state.session.seconds}
+            finalSessionSeconds={this.state.session.finalSessionMinutes * 60}
             stateActive={this.state.stateActive}
             stateSession={this.state.stateSession}
           />

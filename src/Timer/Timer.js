@@ -8,9 +8,10 @@ class Timer extends Component{
         
         this.state = {
             calculations:  this.getCalculationsObj(200, 5),
-            progress: 100
+            progress: 0
         };
         this.updateCircleRadius = this.updateCircleRadius.bind(this);
+        this.updateProgress = this.updateProgress.bind(this);
     }
 
     getCalculationsObj(outerRadius, stroke) {
@@ -25,7 +26,20 @@ class Timer extends Component{
         };
     }
 
+    updateProgress() {
+        let { stateSession } = this.props.stateSession;
+
+        let finalSeconds = (stateSession) ? this.props.finalSessionSeconds : this.props.finalBreakSeconds;
+        let secondsLeft = (stateSession) ? this.props.sessionSecondsLeft : this.props.breakSecondsLeft;
+
+        this.setState((prevState, props) => ({
+            calculations: prevState.calculations,
+            progress: secondsLeft / finalSeconds
+        }));
+    }
+
     render(){
+        this.updateProgress();
         const {innerRadius, outerRadius, stroke, circumference} = this.state.calculations;
         let progress = this.state.progress;
         let timeStr = this.makeTimeStr();
