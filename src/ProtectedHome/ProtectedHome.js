@@ -159,8 +159,13 @@ class ProtectedHome extends Component {
   toggleState() {
     let stateActive = !this.state.stateActive;
     // check if there is a valid time to start the timer
-    if(stateActive && this.state.session.seconds) {// timer will start
-      this.timer = setInterval(() => this.decrementOneSecondFromSession(), 1000);
+    if(stateActive) {// timer will start
+      if(this.state.session.seconds)
+        this.timer = setInterval(() => this.decrementOneSecondFromSession(), 1000);
+      else if(this.state.break.seconds)
+        this.timer = setInterval(() => this.decrementOneSecondFromBreak(), 1000);
+      else  
+        return;
       this.setState((prevState, props)=> ({
         break:prevState.break,
         session:prevState.session,
