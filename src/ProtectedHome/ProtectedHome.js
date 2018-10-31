@@ -122,9 +122,9 @@ class ProtectedHome extends Component {
             </p>
           <Timer 
             breakSecondsLeft={this.state.break.seconds}
-            finalBreakSeconds={this.state.break.finalBreakMinutes * 60}
+            progress={() => this.calculateProgress()}           
             sessionSecondsLeft={this.state.session.seconds}
-            finalSessionSeconds={this.state.session.finalSessionMinutes * 60}
+ 
             stateActive={this.state.stateActive}
             stateSession={this.state.stateSession}
           />
@@ -142,6 +142,16 @@ class ProtectedHome extends Component {
       </div>
     ;
     return html;
+  }
+
+  calculateProgress() {
+    let { stateSession } = this.state.stateSession;
+    let { finalBreakMinutes } = this.state.break.finalBreakMinutes;
+    let { finalSessionMinutes } = this.state.session.finalSessionMinutes;
+
+    let finalSeconds = (stateSession) ? finalSessionMinutes * 60 : finalBreakMinutes * 60;
+    let secondsLeft = (stateSession) ? this.state.session.seconds : this.state.break.seconds;
+    return ((finalSeconds - secondsLeft) / finalSeconds) * 100;
   }
 
   toggleState() {

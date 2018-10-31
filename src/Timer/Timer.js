@@ -26,20 +26,7 @@ class Timer extends Component{
         };
     }
 
-    updateProgress() {
-        let { stateSession } = this.props.stateSession;
-
-        let finalSeconds = (stateSession) ? this.props.finalSessionSeconds : this.props.finalBreakSeconds;
-        let secondsLeft = (stateSession) ? this.props.sessionSecondsLeft : this.props.breakSecondsLeft;
-
-        this.setState((prevState, props) => ({
-            calculations: prevState.calculations,
-            progress: secondsLeft / finalSeconds
-        }));
-    }
-
     render(){
-        this.updateProgress();
         const {innerRadius, outerRadius, stroke, circumference} = this.state.calculations;
         let progress = this.state.progress;
         let timeStr = this.makeTimeStr();
