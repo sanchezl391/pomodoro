@@ -152,13 +152,13 @@ class ProtectedHome extends Component {
     let finalSeconds = (stateSession) ? finalSessionMinutes * 60 : finalBreakMinutes * 60;
     let secondsLeft = (stateSession) ? this.state.session.seconds : this.state.break.seconds;
     let progress =  ((finalSeconds - secondsLeft) / finalSeconds) * 100;
-    console.log(progress);
     return progress;
   }
 
   toggleState() {
     let stateActive = !this.state.stateActive;
-    // check if there is a valid time to start the timer
+    console.log('state active: ' + stateActive);
+    // handles pausing and resuming timer
     if(stateActive) {// timer will start
       if(this.state.session.seconds)
         this.timer = setInterval(() => this.decrementOneSecondFromSession(), 1000);
@@ -174,7 +174,8 @@ class ProtectedHome extends Component {
         completedMinutes: prevState.completedMinutes
       }));
     }
-    else { // timer is paused or trying to start an emty timer 
+    else { // timer will be paused
+      console.log('timer paused');
       clearInterval(this.timer);
       let breakSecondsSet = typeof this.state.session.seconds === 'number';
       let sessionSecondsSet = typeof this.state.break.seconds === 'number';

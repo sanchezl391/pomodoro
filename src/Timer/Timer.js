@@ -27,7 +27,6 @@ class Timer extends Component{
     render(){
         const {innerRadius, outerRadius, stroke, circumference} = this.state.calculations;
         let progress = this.props.progress;
-        console.log('prog: ' + progress);
         let timeStr = this.makeTimeStr();
         let type = (this.props.stateSession) ? 'WORK' : 'BREAK' ;
 
