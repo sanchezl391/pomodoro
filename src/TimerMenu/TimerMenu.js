@@ -99,6 +99,7 @@ class TimerMenu extends Component {
 
     handleSaveMessageClicked (message) {
         this.props.setMessage(message);
+        this.toggleMessageDialogState();
     }
 
     handleMessageChange(e) {
