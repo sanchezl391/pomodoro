@@ -151,7 +151,9 @@ class ProtectedHome extends Component {
 
     let finalSeconds = (stateSession) ? finalSessionMinutes * 60 : finalBreakMinutes * 60;
     let secondsLeft = (stateSession) ? this.state.session.seconds : this.state.break.seconds;
-    return ((finalSeconds - secondsLeft) / finalSeconds) * 100;
+    let progress =  ((finalSeconds - secondsLeft) / finalSeconds) * 100;
+    console.log(progress);
+    return progress;
   }
 
   toggleState() {
