@@ -42,7 +42,7 @@ class Timer extends Component{
                     width={outerRadius * 2}
                     >
                     <circle
-                        stroke="white"
+                        stroke="#3498db"
                         fill="transparent"
                         strokeWidth={ stroke }
                         strokeDasharray={ circumference + ' ' + circumference }

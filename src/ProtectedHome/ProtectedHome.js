@@ -229,6 +229,7 @@ class ProtectedHome extends Component {
         console.log('Fetch Error :-S', err);
       });
       clearInterval(this.timer);
+      this.toggleState();
       newSeconds = 0;
       stateSession = true;
       this.showNotification();
