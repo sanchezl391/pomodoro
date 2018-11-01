@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import './Timer.css'
 import '../textFonts.css'
 
+/**
+ * this component shows the display for the timer
+ */
 class Timer extends Component{
     constructor(props){
         super(props);
@@ -12,6 +15,11 @@ class Timer extends Component{
         this.updateCircleRadius = this.updateCircleRadius.bind(this);
     }
 
+    /**
+     * generates an object that will be used to animate the timer circle
+     * @param outerRadius the radius for the outer part of the circle
+     * @param stroke the thickness of the circle
+     */
     getCalculationsObj(outerRadius, stroke) {
         let innerRadius = outerRadius - stroke * 2;
         
@@ -69,6 +77,9 @@ class Timer extends Component{
         window.removeEventListener('resize', this.updateCircleRadius);
     }
 
+    /**
+     * changes the circle's size depending on screen size
+     */
     updateCircleRadius() {
         let screenWidth = window.innerWidth;
         let screenHeight = window.innerHeight;
@@ -82,6 +93,9 @@ class Timer extends Component{
         }));
     }
 
+    /**
+     * generates time string that will displayed on the timer
+     */
     makeTimeStr() {
         let {breakSecondsLeft, sessionSecondsLeft, stateSession} = this.props;
         let minutes = (stateSession) ? ~~(sessionSecondsLeft / 60) : ~~(breakSecondsLeft / 60);
