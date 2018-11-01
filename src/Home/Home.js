@@ -5,6 +5,9 @@ import '../textFonts.css'
 import bcrypt from 'bcryptjs';
 import ProtectedHome from '../ProtectedHome/ProtectedHome';
 
+/**
+ * This component is the register/login page
+ */
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -77,6 +80,9 @@ class Home extends Component {
       </div>;
   }
 
+  /**
+   * Handles clicking on the the sign up button, which prepares the program to register a user
+   */
   handleSignUpModeClicked() {
     this.setState((prevState, props) => ({
       signInState: false, 
@@ -86,6 +92,9 @@ class Home extends Component {
     }))
   }
 
+  /**
+   * Handles clicking on the the sign in button, which prepares the program to login a user
+   */
   handleSignInModeClicked() {
     this.setState((prevState, props) => ({
       signInState: true, 
@@ -95,6 +104,10 @@ class Home extends Component {
     }))
   }
 
+  /**
+   * handles wether to login or register a user when submitting the form
+   * @param e the event object 
+   */
   handleSubmit (e) {
     e.preventDefault();
     let { signInState } = this.state;
@@ -104,6 +117,10 @@ class Home extends Component {
       this.registerUser(e);
   }
 
+  /**
+   * Registers a user 
+   * @param e the event object
+   */
   registerUser (e) {
     let inputData = e.target; // access with inputData.username.value
     // Hashing the pw
@@ -149,6 +166,9 @@ class Home extends Component {
     }.bind(this)); 
   }
 
+  /**
+   * Sets authenticated to false, which moves component back to this component
+   */
   logoutUser() {
     this.setState((prevState, props) => ({
       authenticated: false,
@@ -158,6 +178,10 @@ class Home extends Component {
     }));
   }
 
+  /**
+   * Logins a user
+   * @param e the event object
+   */
   loginUser (e) {
     let inputData = e.target; // access with inputData.username.value
     let pw = inputData.password.value;
