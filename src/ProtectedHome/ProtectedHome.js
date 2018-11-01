@@ -5,6 +5,10 @@ import Timer from '../Timer/Timer'
 import TimerMenu from '../TimerMenu/TimerMenu'
 import '../ContainerStyles.css'
 
+/**
+ * this component is the core of the application. 
+ * it contains the home screen once the user logs in
+ */
 class ProtectedHome extends Component {
   constructor(props) {
     super(props);
@@ -40,6 +44,9 @@ class ProtectedHome extends Component {
     this.logoutUser = this.props.logoutUser.bind(this.props.ctx);
   }
 
+  /**
+   * retrieves session records from the db
+   */
   getLogs() {
     // Request logs for day
     fetch('https://task-focus-api.herokuapp.com/getLogs',{
@@ -75,6 +82,9 @@ class ProtectedHome extends Component {
       });
   }
 
+  /**
+   * sends a notification once it is time for a break
+   */
   showNotification() {
     // if browser supports service worker then show notification
     const swUrl = `${process.env.PUBLIC_URL}/worker.js`;
@@ -100,7 +110,6 @@ class ProtectedHome extends Component {
   componentDidMount() {
     this.getLogs();
   }
-
 
   render() {
     let html = 
@@ -144,6 +153,10 @@ class ProtectedHome extends Component {
     return html;
   }
 
+  /**
+   * calculates the progress that the timer has made towards completion.
+   * this is used to animate the progress ring.
+   */
   calculateProgress() {
     let stateSession = this.state.stateSession;
     let finalBreakMinutes = this.state.break.finalBreakMinutes;
@@ -155,6 +168,9 @@ class ProtectedHome extends Component {
     return progress;
   }
 
+  /**
+   * toggles between paused/resume timer states
+   */
   toggleState() {
     let stateActive = !this.state.stateActive;
     console.log('state active: ' + stateActive);
@@ -202,6 +218,9 @@ class ProtectedHome extends Component {
     }));
   }
 
+  /**
+   * called every second to decrement one second from break timer
+   */
   decrementOneSecondFromBreak() {
     let newSeconds = this.state.break.seconds - 1;
     let self = this;
@@ -250,6 +269,9 @@ class ProtectedHome extends Component {
     }));
   }
 
+    /**
+   * called every second to decrement one second from session timer
+   */
   decrementOneSecondFromSession() {
     let newSeconds = this.state.session.seconds - 1;
     let stateSession = this.state.stateSession;
@@ -276,6 +298,10 @@ class ProtectedHome extends Component {
     }));
   }
 
+  /**
+   * stores the message into the state
+   * @param message the message that will be used for the push notification
+   */
   setMessage(message) {
     console.log('mssg in app.js: ' + message);
     this.setState((prevState, props) => ({
@@ -293,7 +319,10 @@ class ProtectedHome extends Component {
     }));
   }
 
-
+  /**
+   * sets the final amount of session minutes for the timer
+   * @param minutes the amount of session minutes
+   */
   setFinalSessionMinutes(minutes) {
     // console.log('session minutes: ' + minutes);
     this.setState((prevState, props) => ({
@@ -309,6 +338,11 @@ class ProtectedHome extends Component {
       completedMinutes: prevState.completedMinutes
     }));
   }
+
+    /**
+   * sets the final amount of break minutes for the timer
+   * @param minutes the amount of break minutes
+   */
   setFinalBreakMinutes(minutes) {
     // console.log('break minutes: ' + minutes);
     this.setState((prevState, props) => ({

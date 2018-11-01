@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import './Button.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+/**
+ * this component is pause/resume button of the timer
+ */
 class Button extends Component{
     render(){
         let {stateActive, toggleState, ctx} = this.props;
