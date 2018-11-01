@@ -3,6 +3,10 @@ import './TimerMenu.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import '../textFonts.css'
 
+/**
+ * this component is the menu used to set the session, break
+ *  message
+ */
 class TimerMenu extends Component {
     constructor(props){
         super(props);
@@ -97,11 +101,19 @@ class TimerMenu extends Component {
         return html;
     }
 
+    /**
+     * saves the message to be used for notification and closes message dialog
+     * @param message the string to be shown in the push notification
+     */
     handleSaveMessageClicked (message) {
         this.props.setMessage(message);
         this.toggleMessageDialogState();
     }
 
+    /**
+     * stores input for the message
+     * @param e the event object 
+     */
     handleMessageChange(e) {
         let message = e.target.value;
         this.setState((prevState, props) => ({
@@ -112,6 +124,9 @@ class TimerMenu extends Component {
         }));
     }
 
+    /**
+     * opens and closes message dialog box
+     */
     toggleMessageDialogState() {
         this.setState((prevState, props) => ({
             open: prevState.open,
@@ -125,6 +140,9 @@ class TimerMenu extends Component {
         window.addEventListener('resize', this.updateWindowWidth);
       }
       
+    /**
+     * stores the width of the window
+     */
     updateWindowWidth() {
         this.setState((prevState, props) => ({
             width: window.innerWidth,
@@ -136,6 +154,9 @@ class TimerMenu extends Component {
         window.removeEventListener('resize', this.updateWindowWidth);
     }
 
+    /**
+     * generates icon to be shown for the drawer depending on app layout
+     */
     getArrowIcon() {
         let arrowIcon = <FontAwesomeIcon className='arrow' icon='caret-left'/>;
         let {open, width} = this.state;
@@ -154,6 +175,9 @@ class TimerMenu extends Component {
 
     }
 
+    /**
+     * closes and opens the menu drawer
+     */
     toggleDrawerState () {
         this.setState((prevState, props) => ({
             open: !this.state.open,
@@ -161,6 +185,10 @@ class TimerMenu extends Component {
         }));
     }
 
+    /**
+     * checks if the entered minutes are valid
+     * @param e the event object
+     */
     sanitizeMinutes(e) {
         let minutes = e.target.value;
         // handle invalid values of minutes
@@ -172,6 +200,10 @@ class TimerMenu extends Component {
         return minutes;
     }
 
+    /**
+     * stores the minutes for break
+     * @param e the event object
+     */
     handleMinuteBreakChange(e) {
         let minutes = this.sanitizeMinutes(e);
 
@@ -179,6 +211,10 @@ class TimerMenu extends Component {
         let updateMinutesInParent = this.props.setFinalBreakMinutes.bind(this.props.ctx);
         updateMinutesInParent(minutes);
     }
+     /**
+     * stores the minutes for session
+     * @param e the event object
+     */
     handleMinuteSessionChange(e) {
         let minutes = this.sanitizeMinutes(e);
 
